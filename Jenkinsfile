@@ -23,7 +23,7 @@ pipeline {
 
         stage('Run TestProject tests') {
             steps {
-                bat 'dotnet test HouseRentingSystem.Tests/HouseRentingSystem.Tests.csproj --logger "trx;LogFileName=TestResults1.trx"' 
+                bat 'dotnet test HouseRentingSystem.Tests/HouseRentingSystem.Tests.csproj' 
             }
         }
 
@@ -31,11 +31,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: '**/TestResults1/*.trx', allowEmptyArchive: true
-            step([
-                $class: 'MSTestPublisher',
-                testResultsFile: '**/TestResults1/*.trx'
-            ])
+            echo 'CI pipeline completed'
         }
     }
 }
